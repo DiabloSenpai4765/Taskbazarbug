@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Vendor Registration - TaskBazaar</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* Specific styles for this form page, can be merged into style.css or kept separate */
+    body {
+      font-family: 'Poppins', sans-serif; /* Ensure font is applied */
+      background-color: #f1e3fc;
+      margin: 0;
+      padding: 20px; /* Add some padding */
+      display: flex; /* For centering the form container */
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    .container {
+      max-width: 650px; /* Wider for better form layout */
+      margin: 20px auto; /* Auto margins for centering if flex isn't enough */
+      background: #fff;
+      padding: 30px 40px; /* More padding */
+      border-radius: 16px; /* More rounded */
+      box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+    }
+
+    h2 {
+      text-align: center;
+      color: #5e0055;
+      margin-bottom: 25px;
+      font-size: 2rem; /* Larger heading */
+    }
+
+    form label {
+      display: block;
+      margin-top: 18px; /* More space above label */
+      margin-bottom: 5px; /* Space between label and input */
+      font-weight: 600;
+      color: #333;
+      font-size: 0.95rem;
+    }
+
+    form input[type="text"],
+    form input[type="email"],
+    form input[type="tel"],
+    form input[type="number"],
+    form select,
+    form textarea {
+      width: 100%;
+      padding: 12px 15px; /* More padding */
+      margin-top: 5px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 1rem;
+      box-sizing: border-box; /* Important for width 100% */
+      transition: border-color 0.3s ease;
+    }
+    form input:focus, form select:focus, form textarea:focus {
+        border-color: #8E7AEF;
+        outline: none;
+        box-shadow: 0 0 0 2px rgba(142, 122, 239, 0.2);
+    }
+
+    form input[type="file"] {
+      padding: 10px; /* Some padding */
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      /* border: none; */ /* Or keep border for consistency */
+    }
+
+    .submit-btn { /* Reusing class from your main style.css if defined, or define here */
+      background: linear-gradient(to right, #c183c8, #5e0055); /* Darker gradient */
+      color: white;
+      padding: 14px 24px; /* Larger button */
+      border: none;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 1.1rem;
+      margin-top: 30px; /* More space above button */
+      cursor: pointer;
+      width: 100%;
+      transition: background 0.4s ease, transform 0.2s ease;
+    }
+
+    .submit-btn:hover {
+      background: linear-gradient(to right, #a86edb, #50004a);
+      transform: translateY(-2px); /* Slight lift on hover */
+    }
+
+    .message-area { /* For success or error messages */
+      text-align: center;
+      margin-top: 20px;
+      padding: 10px;
+      border-radius: 8px;
+      font-weight: bold;
+    }
+    .success-message {
+      background-color: #e6ffed;
+      color: #006f00;
+      border: 1px solid #c3e6cb;
+    }
+    .error-message {
+      background-color: #f8d7da;
+      color: #721c24;
+      border: 1px solid #f5c6cb;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Become a TaskBazaar Vendor</h2>
+    <form id="vendorForm" enctype="multipart/form-data">
+      <label for="name">Full Name</label>
+      <input type="text" id="name" name="name" required />
+
+      <label for="email">Email Address</label>
+      <input type="email" id="email" name="email" required />
+
+      <label for="phone">Phone Number (e.g., +923001234567)</label>
+      <input type="tel" id="phone" name="phone" pattern="^\+[1-9]\d{1,14}$" title="Include country code e.g. +92..." required />
+
+      <label for="category">Service Category</label>
+      <select id="category" name="category" required>
+        <option value="">--Select Category--</option>
+        <option value="Vegetables">Vegetables Supplier</option>
+        <option value="electrical">Electrician</option>
+        <option value="Plumbers">Plumbers</option>
+        <option value="Handymen">Handymen</option>
+        <option value="Cleaning">Cleaning Services</option>
+        <option value="Tutoring">Tutoring</option>
+        </select>
+
+      <label for="location">Primary Service Location (e.g., Your Town/Area)</label>
+      <input type="text" id="location" name="location" placeholder="e.g., Satellite Town, Rawalpindi" required />
+
+      <label for="experience">Years of Experience</label>
+      <input type="number" id="experience" name="experience" min="0" required />
+
+      <label for="certification">Upload Certification/Verification Document (PDF, JPG, PNG)</label>
+      <input type="file" id="certification" name="certification" accept=".pdf,.jpg,.jpeg,.png" required />
+      <small style="display:block; margin-top:3px; color:#777;">Max file size: 5MB. This helps us verify your services.</small>
+
+
+      <label for="description">Brief Description of Your Services</label>
+      <textarea id="description" name="description" rows="4" placeholder="Describe what you offer, your expertise, etc. (Max 300 characters)"></textarea>
+
+      <button type="submit" class="submit-btn">Register as Vendor</button>
+    </form>
+    <div class="message-area" id="formMessage" style="display: none;"></div>
+  </div>
+
+  <script>
+    document.getElementById('vendorForm').addEventListener('submit', async function(e) {
+      e.preventDefault();
+
+      const form = e.target;
+      const formData = new FormData(form);
+      const submitButton = form.querySelector('.submit-btn');
+      const messageDiv = document.getElementById('formMessage');
+
+      messageDiv.style.display = 'none'; // Hide previous messages
+      messageDiv.className = 'message-area'; // Reset class
+      submitButton.disabled = true;
+      submitButton.textContent = 'Submitting...';
+
+      try {
+        // *** CHANGE THIS LINE ***
+        const response = await fetch('http://localhost:4000/register-vendor', { // Explicitly set the full URL to your backend
+          method: 'POST',
+          body: formData // No 'Content-Type' header needed for FormData with files, browser sets it
+        });
+
+        const result = await response.json(); // Always try to parse JSON
+
+        if (response.ok) {
+          messageDiv.textContent = result.message || 'Registration submitted successfully! Awaiting admin approval.';
+          messageDiv.classList.add('success-message');
+          messageDiv.style.display = 'block';
+          form.reset();
+          // Optionally redirect to a success page after a delay
+          // setTimeout(() => { window.location.href = 'success.html'; }, 3000);
+        } else {
+          messageDiv.textContent = result.message || `Error: ${response.statusText}`; // Show responseText if message not present
+          messageDiv.classList.add('error-message');
+          messageDiv.style.display = 'block';
+        }
+      } catch (error) {
+        console.error('Error submitting vendor registration:', error);
+        messageDiv.textContent = 'An unexpected error occurred. Please check your connection and ensure the backend server is running on http://localhost:4000.';
+        messageDiv.classList.add('error-message');
+        messageDiv.style.display = 'block';
+      } finally {
+        submitButton.disabled = false;
+        submitButton.textContent = 'Register as Vendor';
+      }
+    });
+  </script>
+
+  <footer>
+    <i class="bi bi-house-door-fill" onclick="window.location.href='index.html'" title="Home"></i>
+    <i class="bi bi-map-fill" onclick="window.location.href='map.html'" title="Map"></i>
+    <i class="bi bi-search" onclick="window.location.href='vendors-list.html'" title="Search Services"></i>
+    <i class="bi bi-check2-square" onclick="alert('My Bookings feature coming soon!')" title="My Bookings (Coming Soon)"></i>
+    <i class="bi bi-person-fill" onclick="window.location.href='index.html#login'" title="Login/Profile"></i>
+  </footer>
+  <script src="vendors.js"></script>
+</body>
+</html>

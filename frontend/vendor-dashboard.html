@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vendor Dashboard - TaskBazaar</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f1e3fc;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            padding-top: 30px;
+            padding-bottom: 50px;
+        }
+        .container {
+            background: #fff;
+            padding: 30px 40px;
+            border-radius: 16px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+            width: 100%;
+            max-width: 900px;
+            margin-bottom: 20px;
+        }
+        h2 {
+            text-align: center;
+            color: #5e0055;
+            margin-bottom: 25px;
+            font-size: 2.2rem;
+        }
+        .vendor-info {
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 1.1rem;
+            color: #333;
+        }
+        .bookings-list {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        .booking-card {
+            background-color: #f9f3ff;
+            border: 1px solid #e6c1ff;
+            border-radius: 12px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            position: relative;
+        }
+        .booking-card h3 {
+            color: #3f004d;
+            margin-top: 0;
+            margin-bottom: 10px;
+            font-size: 1.4rem;
+        }
+        .booking-card p {
+            margin: 0;
+            color: #555;
+            font-size: 0.95rem;
+        }
+        .booking-card .status-badge {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            text-transform: capitalize;
+        }
+        .status-badge.pending { background-color: #ffe0b2; color: #e65100; }
+        .status-badge.accepted { background-color: #e6ffed; color: #006f00; }
+        .status-badge.rejected { background-color: #ffcdd2; color: #c62828; }
+        .status-badge.completed { background-color: #bbdefb; color: #1976d2; }
+        .status-badge.unpaid { background-color: #fce4ec; color: #ad1457; }
+        .status-badge.paid { background-color: #dcedc8; color: #33691e; }
+
+
+        .booking-actions {
+            margin-top: 15px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .booking-actions button, .booking-actions input[type="submit"] {
+            background-color: #c183c8;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            font-size: 0.9rem;
+        }
+        .booking-actions button:hover, .booking-actions input[type="submit"]:hover {
+            background-color: #a86edb;
+        }
+        .booking-actions .reject-btn {
+            background-color: #f44336;
+        }
+        .booking-actions .reject-btn:hover {
+            background-color: #d32f2f;
+        }
+        .price-input-group {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+            flex-wrap: wrap;
+        }
+        .price-input-group input[type="number"],
+        .price-input-group select {
+            flex-grow: 1;
+            padding: 8px 12px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            min-width: 120px;
+        }
+        .price-input-group button {
+            flex-shrink: 0;
+        }
+        .message-area {
+            text-align: center;
+            margin-top: 20px;
+            padding: 10px;
+            border-radius: 8px;
+            font-weight: bold;
+            display: none; /* Hidden by default */
+        }
+        .success-message { background-color: #e6ffed; color: #006f00; border: 1px solid #c3e6cb; }
+        .error-message { background-color: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
+
+        .header {
+            width: 100%;
+            background-color: #5e0055;
+            padding: 15px 20px;
+            text-align: center;
+            color: white;
+            font-size: 2rem;
+            margin-bottom: 20px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="header" onclick="window.location.href='index.html'">
+        TaskBazaar Vendor Dashboard
+    </div>
+
+    <div class="container">
+        <h2>Your Bookings</h2>
+        <div class="vendor-info">
+            <p id="loggedInVendorInfo">Please log in as a vendor to view bookings.</p>
+        </div>
+        <div class="bookings-list" id="bookingsList">
+            <p class="no-bookings-message">Loading bookings...</p>
+        </div>
+        <div class="message-area" id="dashboardMessage"></div>
+    </div>
+
+    <script src="vendor-dashboard.js"></script>
+</body>
+</html>

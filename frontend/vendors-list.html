@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Vendors - TaskBazaar</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css"> 
+  <style>
+    body { background-color: #f9f3ff; }
+    .vendors-page-header { 
+      text-align: center; padding: 25px 20px;
+      background: linear-gradient(to right, #5e0055, #c183c8); color: white;
+    }
+    .vendors-page-header h1 { font-size: 2.8rem; margin-bottom: 5px; text-shadow: 1px 1px 3px rgba(0,0,0,0.2); }
+    .vendors-page-header p { font-size: 1.1rem; opacity: 0.9; }
+    .filters-container {
+      padding: 20px; background-color: #fff; margin: 25px auto; 
+      border-radius: 12px; box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+      text-align: center; max-width: 900px; 
+    }
+    .filters-container input[type="text"], .filters-container select {
+      padding: 12px 15px; margin: 8px; border-radius: 8px;
+      border: 1px solid #ddd; font-size: 1rem; min-width: 220px; box-sizing: border-box;
+    }
+    .filters-container .search-button { 
+        background: #5e0055; color: white; padding: 12px 25px; border: none;
+        border-radius: 8px; font-weight: 600; cursor: pointer;
+        transition: background 0.3s ease; font-size: 1rem; margin-left: 5px;
+    }
+    .filters-container .search-button:hover { background: #7a0172; }
+    .filter-btn-group {
+        margin-top: 15px; display: flex; flex-wrap: wrap;
+        justify-content: center; gap: 10px;
+    }
+    .filter-btn-group button.filter-btn { 
+        background: #f1e3fc; color: #5e0055; padding: 10px 18px;
+        border: 1px solid #e6c1ff; border-radius: 20px; 
+        font-weight: 600; cursor: pointer; transition: all 0.3s ease;
+    }
+    .filter-btn-group button.filter-btn:hover,
+    .filter-btn-group button.filter-btn.active {
+        background: #5e0055; color: white; border-color: #5e0055;
+    }
+    #vendorContainer {
+      display: flex; flex-wrap: wrap; justify-content: center; 
+      padding: 20px; gap: 25px; max-width: 1200px; margin: 0 auto; 
+    }
+    .vendor-card {
+      background-color: #fff; border-radius: 12px;
+      box-shadow: 0 6px 20px rgba(94,0,85,0.07); width: 300px; 
+      padding: 20px; text-align: left; 
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      display: flex; flex-direction: column;
+    }
+    .vendor-card:hover { transform: translateY(-8px); box-shadow: 0 10px 25px rgba(94,0,85,0.12); }
+    .vendor-card .vendor-image-container {
+        width: 100%; height: 180px; border-radius: 8px;
+        overflow: hidden; margin-bottom: 15px; background-color: #f0f0f0; 
+    }
+    .vendor-card .vendor-image-container img { width: 100%; height: 100%; object-fit: cover; }
+    .vendor-card h4 { color: #5e0055; font-size: 1.5rem; margin-bottom: 5px; font-weight: 600; }
+    .vendor-card p { font-size: 0.95rem; color: #555; margin-bottom: 8px; line-height: 1.5; }
+    .vendor-card .category {
+      font-weight: 600; color: #333; background-color: #e6c1ff;
+      padding: 3px 8px; border-radius: 4px; display: inline-block; 
+      margin-bottom: 10px; font-size: 0.85rem;
+    }
+    .vendor-card .location i, .vendor-card .experience i { color: #8E7AEF; margin-right: 6px; }
+    .vendor-card .verified-badge-card { 
+        color: green; font-weight: bold;
+        font-size: 0.9rem; margin-top: auto; 
+    }
+    .no-vendors-message {
+        width: 100%; text-align: center; font-size: 1.2rem;
+        color: #777; padding: 40px 20px;
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header-simplified" style="background-color: #5e0055; padding: 15px 20px; text-align: center;">
+    <h1 class="title" onclick="window.location.href='index.html'" style="cursor:pointer; color: white; font-size: 2rem; margin:0;">TaskBazaar</h1>
+  </header>
+  <section class="vendors-page-header">
+    <h1>Our Verified Vendors</h1>
+    <p>Find the best local services for your needs.</p>
+  </section>
+  <div class="filters-container">
+    <input type="text" id="searchVendorsInput" placeholder="Search by name, service, location...">
+    <select id="categoryFilterSelect">
+      <option value="all">All Categories</option>
+      <option value="Vegetables">Vegetables</option>
+      <option value="electrical">Electrician</option>
+      <option value="Plumbers">Plumbers</option>
+      <option value="Handymen">Handymen</option>
+    </select>
+    <button class="search-button" onclick="applyFilters()">Search</button>
+     <div class="filter-btn-group">
+        <button class="filter-btn active" data-service="all">All Services</button>
+        <button class="filter-btn" data-service="Vegetables">Vegetables</button>
+        <button class="filter-btn" data-service="electrical">Electricians</button>
+        <button class="filter-btn" data-service="Plumbers">Plumbers</button>
+        <button class="filter-btn" data-service="Handymen">Handymen</button>
+    </div>
+  </div>
+  <div id="vendorContainer">
+    <p class="no-vendors-message">Loading vendors...</p>
+  </div>
+
+  <script src="vendors-list.js"></script>
+</body>
+</html>

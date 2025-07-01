@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Request Booking - TaskBazaar</title>
+    <link rel="stylesheet" href="style.css"> <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f1e3fc;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start; /* Align to top for longer forms */
+            min-height: 100vh;
+            padding-top: 30px;
+            padding-bottom: 30px;
+        }
+        .booking-container {
+            background: #fff;
+            padding: 30px 40px;
+            border-radius: 16px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+            width: 100%;
+            max-width: 600px;
+        }
+        .booking-container h2 {
+            text-align: center;
+            color: #5e0055;
+            margin-bottom: 15px;
+        }
+        .booking-container .vendor-info {
+            background-color: #f9f3ff;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 25px;
+            border: 1px solid #e6c1ff;
+        }
+        .booking-container .vendor-info h3 {
+            margin-top: 0;
+            color: #3f004d;
+        }
+        .booking-form label {
+            display: block;
+            margin-top: 15px;
+            margin-bottom: 5px;
+            font-weight: 600;
+            color: #333;
+        }
+        .booking-form input[type="text"],
+        .booking-form input[type="tel"],
+        .booking-form input[type="email"],
+        .booking-form input[type="date"],
+        .booking-form input[type="time"],
+        .booking-form textarea {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 1rem;
+            box-sizing: border-box;
+        }
+        .booking-form textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+        .booking-form .submit-btn { /* Using existing class from style.css if available */
+            background: linear-gradient(to right, #c183c8, #5e0055);
+            color: white;
+            padding: 14px 24px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin-top: 30px;
+            cursor: pointer;
+            width: 100%;
+        }
+        .booking-form .submit-btn:hover {
+             background: linear-gradient(to right, #a86edb, #50004a);
+        }
+        .message-area {
+            text-align: center;
+            margin-top: 20px;
+            padding: 10px;
+            border-radius: 8px;
+            font-weight: bold;
+        }
+        .success-message { background-color: #e6ffed; color: #006f00; border: 1px solid #c3e6cb; }
+        .error-message { background-color: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
+    </style>
+</head>
+<body>
+    <div class="booking-container">
+        <div class="vendor-info" id="bookingVendorInfo">
+            <h3>Loading vendor details...</h3>
+        </div>
+
+        <h2>Request a Booking</h2>
+        <form id="bookingForm" class="booking-form">
+            <input type="hidden" id="vendorId" name="vendorId">
+
+            <label for="customerName">Your Name:</label>
+            <input type="text" id="customerName" name="customerName" required>
+
+            <label for="customerPhone">Your Phone Number:</label>
+            <input type="tel" id="customerPhone" name="customerPhone" placeholder="e.g., +923001234567" required>
+            
+            <label for="customerEmail">Your Email (Optional):</label>
+            <input type="email" id="customerEmail" name="customerEmail">
+
+            <label for="requestedDate">Preferred Date:</label>
+            <input type="date" id="requestedDate" name="requestedDate" required>
+
+            <label for="requestedTime">Preferred Time:</label>
+            <input type="time" id="requestedTime" name="requestedTime" required>
+
+            <label for="serviceNotes">Service Notes / Details:</label>
+            <textarea id="serviceNotes" name="serviceNotes" placeholder="Any specific requirements or questions for the vendor..."></textarea>
+
+            <button type="submit" class="submit-btn">Request Booking</button>
+        </form>
+        <div class="message-area" id="bookingMessage" style="display: none;"></div>
+    </div>
+
+    <script src="booking.js"></script>
+</body>
+</html>
