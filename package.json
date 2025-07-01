@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "firebase.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha --exit"
   },
   "keywords": [],
   "author": "",
@@ -14,5 +14,9 @@
     "express": "^5.1.0",
     "multer": "^2.0.0"
   },
-  "description": ""
+  "description": "",
+  "devDependencies": {
+    "mocha": "^11.7.1",
+    "supertest": "^7.1.1"
+  }
 }

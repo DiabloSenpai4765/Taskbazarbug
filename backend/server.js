@@ -358,6 +358,25 @@ app.get('/api/customer/bookings/:phone', (req, res) => {
     res.status(200).json(customerBookings);
 });
 
+// NEW API: Get bookings for a specific vendor (by vendorId)
+app.get('/api/vendor/bookings/:vendorId', (req, res) => {
+    try {
+        if (fs.existsSync(bookingsFilePath)) {
+            const data = fs.readFileSync(bookingsFilePath, 'utf8');
+            bookings = data.trim() ? JSON.parse(data) : [];
+        } else {
+            bookings = [];
+        }
+    } catch (err) {
+        console.error(`[${new Date().toISOString()}] Error loading bookings for vendor:`, err);
+        return res.status(500).json({ message: 'Error loading bookings data.' });
+    }
+
+    const { vendorId } = req.params;
+    const vendorBookings = bookings.filter(b => b.vendorId === vendorId);
+    res.status(200).json(vendorBookings);
+});
+
 // NEW API: Update booking status by vendor
 app.post('/api/vendor/bookings/:bookingId/update-status', (req, res) => {
     try {

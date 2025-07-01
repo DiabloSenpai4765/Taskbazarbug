@@ -23,7 +23,7 @@ document.addEventListener('DOMContentLoaded', () => {
         dashboardMessage.style.display = 'none';
 
         try {
-            const response = await fetch(`http://localhost:4000/api/vendor/bookings/${vendorId}`);
+            const response = await fetch(`/api/vendor/bookings/${encodeURIComponent(vendorId)}`);
             if (!response.ok) {
                 const errorText = await response.text();
                 throw new Error(`HTTP error! status: ${response.status}, message: ${errorText}`);
@@ -89,7 +89,7 @@ document.addEventListener('DOMContentLoaded', () => {
     window.updateBookingStatus = async function(bookingId, status) {
         dashboardMessage.style.display = 'none';
         try {
-            const response = await fetch(`http://localhost:4000/api/vendor/bookings/${bookingId}/update-status`, {
+            const response = await fetch(`/api/vendor/bookings/${bookingId}/update-status`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ status })
@@ -124,7 +124,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         try {
-            const response = await fetch(`http://localhost:4000/api/vendor/bookings/${bookingId}/set-price`, {
+            const response = await fetch(`/api/vendor/bookings/${bookingId}/set-price`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ price, paymentMethod })
@@ -145,7 +145,7 @@ document.addEventListener('DOMContentLoaded', () => {
     window.markPaymentReceived = async function(bookingId) {
         dashboardMessage.style.display = 'none';
         try {
-            const response = await fetch(`http://localhost:4000/api/vendor/bookings/${bookingId}/set-price`, { // Re-using set-price to update paymentStatus
+            const response = await fetch(`/api/vendor/bookings/${bookingId}/set-price`, { // Re-using set-price to update paymentStatus
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ paymentStatus: 'paid' }) // Only update paymentStatus
